@@ -1,0 +1,49 @@
+@import "./app.scss";
+
+.receipt-wrapper{
+    background-color: rgba(255, 255, 255, 0.7);
+    color: $light;
+    width: 300px;
+    height: fit-content;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+
+    header, footer{
+        border: 2px solid blue;
+        text-align: center;
+    }
+
+    main{
+        ul{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            //padding: 1% 2%;
+
+            li{
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+                align-items: center;
+                margin: 3% 0px;
+                padding: 1% 2%;
+                border-top: 2px solid lightgray;
+                border-bottom: 2px solid lightgray;
+
+                div:nth-child(1){
+                    width: 16ch;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+            }
+
+            li:last-child{
+                border-top: 2px solid black;
+                border-bottom: 2px solid black;
+                font-weight: 600;
+            }
+        }
+    }
+}

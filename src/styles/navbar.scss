@@ -1,0 +1,157 @@
+@import "./app.scss";
+$inputSize: 60px;
+
+.nav-wrapper{
+    background-color: $light;
+    color: $font-light;
+    font-size: 1.0rem;
+    height: $navHeight;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5% 1.25% 0.5% 0px;
+
+    .nav-logo{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+
+        .nav-logo-txt{
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+    }
+
+    .hide-logo{
+        display: none;
+    }
+
+    .nav-right{
+        height: 100%;
+        flex: 1 1 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 2%;
+
+        .user-icon{
+            .user-menu-item{
+                font-size: 1.2rem;
+            }
+
+            *{
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: black;
+
+                @media screen and (max-width: 576px) {
+                    font-size: 1.0rem;
+                }
+            }
+        }
+
+        .cart-wrapper{
+            *{
+                font-size: 1.8rem;
+
+                @media screen and (max-width: 992px){
+                    font-size: 1.3rem;
+                }
+            }
+        }
+
+        .search-box{
+            width: -moz-fit-content;
+            width: fit-content;
+            height: fit-content;
+            position: relative;
+
+            .btn-search{
+                width: $inputSize;
+                height: $inputSize;
+                border-style: none;
+                outline: none;
+                cursor: pointer;
+                border-radius: 50%;
+                position: absolute;
+                right: 0px;
+                transform: translateX(30%);
+                color:#ffffff;
+                background-color: transparent;
+                pointer-events: painted;
+
+                @media screen and (max-width: 576px) {
+                    height: 40px;
+                    width: 40px;
+                    transform: translate(15%, 15%);
+                }
+
+                *{
+                    font-size: 1.3rem;
+                    font-weight: 600;
+
+                    @media screen and (max-width: 576px) {
+                        font-size: 1.1rem;
+                    }
+                }
+
+                &:focus ~ .input-search{
+                    color: white;
+                    width: 300px;
+                    border-radius: 0px;
+                    background-color: transparent;
+                    border-bottom: 1px solid rgba(255,255,255,.5);
+                    transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+
+                    @media screen and (max-width: 576px) {
+                        width: 42vw;
+                    }
+                }
+
+            }
+
+            .input-search{
+                height: $inputSize;
+                width: $inputSize;
+                border-style: none;
+                padding: 10px;
+                font-size: clamp(16px, 1.0rem, 22px);
+                letter-spacing: 2px;
+                outline: none;
+                border-radius: 50%;
+                transition: all .5s ease-in-out;
+                background-color: #22a6b3;
+                padding-right: 40px;
+                color:#fff;
+
+                @media screen and (max-width: 576px) {
+                    height: 50px;
+                    width: 50px;
+                }
+
+                &::placeholder{
+                    color:rgba(255, 255, 255, .5);
+                    font-size: clamp(16px, 1.0rem, 22px);
+                    letter-spacing: 2px;
+                    font-weight: 100;
+                }
+
+                &:not(:focus){
+                    color: transparent;
+                }
+
+                &:focus{
+                    width: 300px;
+                    border-radius: 0px;
+                    background-color: transparent;
+                    border-bottom: 1px solid rgba(255,255,255,.5);
+                    transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+
+                    @media screen and (max-width: 576px) {
+                        width: 42vw;
+                    }
+                }
+            }
+        }
+    }
+}
