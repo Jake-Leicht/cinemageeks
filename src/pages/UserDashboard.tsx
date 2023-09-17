@@ -11,12 +11,10 @@ import "../styles/userDashboard.scss";
 import "../styles/cart.scss";
 
 const UserDashboard = () => {
-    // ! Cannot show Cart from this page, adding code would be redundant and have issues
     const user: any = auth.currentUser;
     const firebaseCollection = collection(db, "users");
 
     const [transactions, setTransactions] = useState<TransactionsInterface[]>([]);
-    //const [initialFetch, setInitialFetch] = useState<boolean>(true);
 
     const navigate: any = useNavigate();
 
@@ -24,9 +22,11 @@ const UserDashboard = () => {
         if(user !== null){
             return(<>
                 <ul className="user-info-wrapper">
+                    {user.photoURL ? <><li>
+                        <img src={user.photoURL} alt="Profile Photo"/></li></> : <></>}
                     {user.displayName ? <><li>Display name: {user.displayName}</li></> : <></>}
                     {user.email ? <><li>Email: {user.email}</li></> : <></>}
-                    {user.photoURL ? <><li>photo: {user.photoURL}</li></> : <></>}
+                    {/* {user.photoURL ? <><li>photo: {user.photoURL}</li></> : <></>} */}
                 </ul>
             </>);
         } else{
@@ -65,29 +65,7 @@ const UserDashboard = () => {
 		showCart ? setShowCart(false) : setShowCart(true);
 	};
 
-    // todo: Save to local storage
-        // ! not unique, needs to be saved in googleFirebase...i think?
     const [bgColor, setBgColor] = useState<string>("transparent");
-    // useEffect(() => {
-    //     console.log("useEffect called {bgColor}");
-    //     window.localStorage();
-    //     if(localBgColor === undefined){
-    //         console.log(`color: ${localBgColor}`);
-    //     }
-        
-    // }, [bgColor]);
-
-    function displayTransactions(array: TransactionsInterface[]){
-        if(array.length === 0){
-            return(<>
-                <h1>There are no transactions to record</h1>
-            </>);
-        } else{
-            transactions.map((transaction: TransactionsInterface, index: number) => {
-                return <Receipt key={index} transaction={transaction}/>
-            });
-        }
-    }
     
     return(<>
         <Navbar cartHandler={cartHandler} onDashboard={true} bgColor={bgColor}/>
@@ -102,11 +80,18 @@ const UserDashboard = () => {
                 <TabPanel>
                     <h1>Account Info</h1>
                     {displayUserInfo()}
-                    {/* <p>Account owner : // user email //: info like addy // billable purchases</p> */}
-                    {/* ! If storing (potential) user info, add modal to emphasize that they should not put on any REAL card info; this is just a mock up */}
                 </TabPanel>
                 <TabPanel>
-                    {displayTransactions(transactions)}
+                    <h1>Receipts</h1>
+                    <div className="receipt-container">
+                        {transactions.length === 0 ? <>
+                            <h1>There are no transactions to record</h1>
+                        </> : <>
+                            {transactions.map((transaction: TransactionsInterface, index: number) => {
+                                return(<Receipt key={index} transaction={transaction}/>);
+                            })}
+                        </>}
+                    </div>
                 </TabPanel>
                 <TabPanel>
                     {/* <p>Settings: light/dark mode, background color for user icon, color blind mode?, etc.</p> */}

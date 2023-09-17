@@ -101,7 +101,7 @@
                         left: 50%;
                         transform: translate(-50%, -50%);
                 
-                        background-color: white;    /* *set to bg color*/
+                        background-color: black;    /* *set to bg color*/
                         z-index: 3;
                         border-radius: 50%;
                         box-shadow: 0px 1px 0px 6px rgba(120, 120, 120, 0.75);
@@ -187,7 +187,7 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
         
-                background-color: $light;    /* *set to bg color*/
+                background-color: black;
                 z-index: 3;
                 border-radius: 50%;
                 box-shadow: 0px 1px 0px 8px rgba(120, 120, 120, 0.75);
@@ -200,15 +200,15 @@
         }
 
         .open-case-wrapper{
-            height: 400px;
+            height: 92%;
             width: 80%;
             margin: auto;
             display: flex;
             background-color: transparent;
 
-            @media screen and (max-width: 768px){
-                height: 300px;
-            }
+            // @media screen and (max-width: 710px){
+            //     height: 92%;
+            // }
 
             .case-side{
                 border: 2px solid black;
@@ -256,6 +256,90 @@
                         z-index: 3;
                         border-radius: 50%;
                         box-shadow: 0px 1px 0px 8px rgba(120, 120, 120, 0.75);
+                    }
+                }
+            }
+        }
+
+        .open-case-wrapper-adjusted{
+            height: 150px;
+            width: 80%;
+            margin: auto;
+            display: flex;
+            background-color: transparent;
+
+            @media screen and (max-width: 1200px){
+                height: 200px;
+            }
+
+            .case-side-adjusted{
+                border: 2px solid black;
+                border-radius: 8px;
+                flex: 1 1 0;
+                background-color: rgba(120, 120, 120, 0.75);
+            }
+        
+            .left-side-adjusted{
+                overflow: hidden;
+            }
+        
+            .right-side-adjusted{
+                display: grid;
+                place-items: center;
+
+                .case-cd-wrapper-adjusted{
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    position: relative;
+                    box-shadow: 0px 1px 0px 6px rgba(120,120,120,0.75);
+
+                    @media screen and (min-width: 993px) and (max-width: 1200px){
+                        width: 125px;
+                        height: 125px;
+                    }
+
+                    @media screen and (min-width: 711px) and (max-width: 992px){
+                        width: 75px;
+                        height: 75px;
+                    }
+
+                    @media screen and (max-width: 710px){
+                        width: 150px;
+                        height: 150px;
+
+                    }
+
+                    .case-cd-center-adjusted{
+                        width: 12px;
+                        height: 12px;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                
+                        background-color: black;
+                        z-index: 3;
+                        border-radius: 50%;
+                        box-shadow: 0px 1px 0px 4px rgba(120, 120, 120, 0.75);
+
+                        @media screen and (min-width: 992px) and (max-width: 1200px){
+                            width: 20px;
+                            height: 20px;
+                            box-shadow: 0px 1px 0px 6px rgba(120, 120, 120, 0.75);
+                        }
+
+                        @media screen and (min-width: 710px) and (max-width: 992px){
+                            width: 12px;
+                            height: 12px;
+                            box-shadow: 0px 1px 0px 3px rgba(120, 120, 120, 0.75);
+                        }
+
+                        @media screen and (max-width: 710px){
+                            width: 24px;
+                            height: 24px;
+                            box-shadow: 0px 1px 0px 6px rgba(120, 120, 120, 0.75);
+                        }
                     }
                 }
             }
@@ -445,4 +529,8 @@
             align-items: center;
         }
     }
+}
+
+.no-scrolling{
+    overflow: hidden;
 }

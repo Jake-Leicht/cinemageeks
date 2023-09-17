@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import {CartItem} from "./ComponentHandler";
 import { PurchaseInterface } from "../utils/InterfaceHandler";
 import { addDoc, collection } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 import { db, auth } from "../utils/FirebaseConfig";
-import { stockData } from "../utils/StockData";
+// import { stockData } from "../utils/StockData";
 import { FormControl, FormLabel, Input, NumberInput, 
     NumberInputField, NumberInputStepper, 
     NumberIncrementStepper, NumberDecrementStepper} from "@chakra-ui/react";
@@ -97,9 +97,9 @@ const Cart = ({purchase, cartHandler, clearPurchase}: Props) => {
         setCart(cartPlaceHolder);
     }
 
-    const populateWithStockData = () => {
-        setCart(stockData);
-    }
+    // const populateWithStockData = () => {
+    //     setCart(stockData);
+    // }
 
     const firebaseCollection = collection(db, "users");
 
@@ -130,8 +130,10 @@ const Cart = ({purchase, cartHandler, clearPurchase}: Props) => {
                     <h1>You have no items in your cart, continue shopping</h1>
                 </div>
             </> : <>
-                {cart.map((item: any, index: number) => <CartItem index={index} key={index} id={item.id} 
-                item={item} removeItem={removeItem} itemQuantityHandler={itemQuantityHandler}/>)}
+                <div className="cart-items-container">
+                    {cart.map((item: any, index: number) => <CartItem index={index} key={index} id={item.id} 
+                    item={item} removeItem={removeItem} itemQuantityHandler={itemQuantityHandler}/>)}
+                </div>
                 <div className="cart-footer">
                     <div className="cart-btn-wrapper">
                         {/* <button onClick={populateWithStockData}>Stock Data</button> */}
@@ -238,6 +240,11 @@ const Cart = ({purchase, cartHandler, clearPurchase}: Props) => {
     }
 
     const completePurchaseDisplay = () => {
+        setTimeout(() => {
+            setCheckoutProcess(1);
+            setCart([]);
+        }, 6000);
+
         return(<>
             <div className="complete-purchase-wrapper">
                 {purchaseSuccess ? <>
@@ -250,14 +257,6 @@ const Cart = ({purchase, cartHandler, clearPurchase}: Props) => {
             </div>
         </>);
     }
-
-    // todo: Checkout form:
-        // * address/shipping => Payment => Review
-        // * create breadcrumb trail for cart
-        // * show a 'no items cart' page
-        // * fix mobile version of view item (displaying on full screen)
-        // * menu cart item doesn't open cart (unless click item not tab)
-        // * cart item dimensions are off on resizing
 
     return(<>
         <ul className="cart-breadcrumb-wrapper">

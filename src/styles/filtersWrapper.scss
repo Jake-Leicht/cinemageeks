@@ -11,6 +11,12 @@
         visibility: hidden;
         transition: opacity 500ms;
         padding: 0px 2%;
+
+        .filter-select-elem{
+            *{
+                color: black;
+            }
+        }
     }
     
     .filter-show{
@@ -56,6 +62,7 @@
     .clear-btn{
         color: #22a6b3;
         border: none;
+        min-width: 175px;
 
         &:hover{
             border: 2px solid #22a6b3;

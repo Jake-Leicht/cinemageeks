@@ -4,6 +4,7 @@
     background-color: $light;
     color: $font-light;
     height: 100vh;
+    max-height: 1080px;
     width: 40%;
     position: absolute;
     top: 0;
@@ -117,6 +118,16 @@
         h3{
             width: 100%;
             text-align: center;
+        }
+    }
+
+    .cart-items-container{
+        height: 76%;
+        overflow: scroll;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+        &::-webkit-scrollbar{
+            display: none;
         }
     }
 

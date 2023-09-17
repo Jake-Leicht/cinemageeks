@@ -4,7 +4,8 @@ import { TransactionsInterface } from "../utils/InterfaceHandler";
 import "../styles/receipt.scss";
 
 interface Props{
-    transaction?: TransactionsInterface;
+    transaction: TransactionsInterface;
+    key: number;
 }
 
 const Receipt = ({transaction} : Props) => {
@@ -17,7 +18,7 @@ const Receipt = ({transaction} : Props) => {
         let history: any = JSON.parse(transaction?.transaction);
         if(history !== 0){
             history.forEach((elem: any) => {
-                let temp: number = elem.cost * elem.quantity;
+                let temp: number = elem.purchase.cost * elem.purchase.quantity;
                 setTotal((prev) => prev + temp);
             });
         }
@@ -26,9 +27,8 @@ const Receipt = ({transaction} : Props) => {
     return(<>
         <div className="receipt-wrapper">
             <header>
-                <h1>Thank you for your business</h1>
-                <h3>Your order:</h3>
-                <p>{dateOrdered?.toLocaleDateString()}</p>
+                <h2>Thank you for your business</h2>
+                <p>Ordered on: {dateOrdered?.toLocaleDateString()}</p>
             </header>
             <main>
                 <ul>
@@ -36,18 +36,18 @@ const Receipt = ({transaction} : Props) => {
                         return(<>
                             <li key={index}>
                                 <div>{elem.purchase.movie.title}</div>
-                                <div>${elem.cost * elem.quantity}.00</div>
+                                <div>${elem.purchase.cost * elem.purchase.cost}.00</div>
                             </li>
                         </>);
                     })}
-                    <li>
+                    <li key="last">
                         <div>total:</div>
                         <div>${total}.00</div>
                     </li>
                 </ul>
             </main>
             <footer>
-                <h1>Thank you for shopping with us, tell your friends and come back at any time</h1>
+                <h4>Thank you for shopping with us, tell your friends and come back at any time</h4>
             </footer>
         </div>
     </>);

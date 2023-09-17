@@ -21,9 +21,10 @@ interface Props{
     onDashboard?: boolean;
     closeProductPage?: () => void;
     cartHandler?: () => void;
+    setShowProductPage?: any;
 }
 
-const Navbar = ({setSearch, onOpen, btnRef, bgColor, onDashboard, closeProductPage, cartHandler}: Props) => {
+const Navbar = ({setSearch, onOpen, btnRef, bgColor, onDashboard, closeProductPage, cartHandler, setShowProductPage}: Props) => {
     const user: any = auth.currentUser;
     const [userUpdate, setUserUpdate] = useState<boolean>(false);
 
@@ -32,7 +33,7 @@ const Navbar = ({setSearch, onOpen, btnRef, bgColor, onDashboard, closeProductPa
 
     const toast = useToast();
     const statuses: any = ['success', 'error', 'warning', 'info'];
-    // * sucsess = sucess, warning = error, info = tip (item added to cart), warning = ?
+    // * success = success, warning = error, info = tip (item added to cart), warning = ?
 
     const signOutUser = () => {
         signOut(auth).then(() => {
@@ -90,6 +91,7 @@ const Navbar = ({setSearch, onOpen, btnRef, bgColor, onDashboard, closeProductPa
                         onChange={(input) => {searchRef.current = input.currentTarget.value}}
                         onKeyDown={(key: any) => {
                             if(key.key === "Enter"){
+                                setShowProductPage(false);
                                 setSearch(searchRef.current);
                             }
                         }}/>
@@ -158,12 +160,14 @@ const Navbar = ({setSearch, onOpen, btnRef, bgColor, onDashboard, closeProductPa
                                 onChange={(input) => {searchRef.current = input.currentTarget.value}}
                                 onKeyDown={(key: any) => {
                                     if(key.key === "Enter"){
+                                        setShowProductPage(false);
                                         setSearch(searchRef.current);
                                     }
                                 }}
                                 placeholder="Search movie title..."/>
                             <InputRightElement>
                                 <button className="search-icon" title="Search" onClick={() => {
+                                    setShowProductPage(false);
                                     setSearch(searchRef.current);
                                 }}>
                                     <FaSearch />

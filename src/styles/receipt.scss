@@ -1,16 +1,16 @@
 @import "./app.scss";
 
 .receipt-wrapper{
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: #ededed;
     color: $light;
     width: 300px;
     height: fit-content;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
+    border: 4px solid transparent;
 
     header, footer{
-        border: 2px solid blue;
         text-align: center;
     }
 
@@ -19,7 +19,13 @@
             list-style-type: none;
             margin: 0;
             padding: 0;
-            //padding: 1% 2%;
+            max-height: 300px;
+            overflow: scroll;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+            &::-webkit-scrollbar{
+                display: none;
+            }
 
             li{
                 display: flex;
@@ -28,14 +34,16 @@
                 align-items: center;
                 margin: 3% 0px;
                 padding: 1% 2%;
-                border-top: 2px solid lightgray;
-                border-bottom: 2px solid lightgray;
 
                 div:nth-child(1){
                     width: 16ch;
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
+                }
+
+                &:nth-child(2n+0){
+                    background-color: lightgray;
                 }
             }
 
@@ -45,5 +53,9 @@
                 font-weight: 600;
             }
         }
+    }
+
+    &:hover{
+        border: 4px solid $secondary;
     }
 }

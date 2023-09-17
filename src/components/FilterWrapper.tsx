@@ -12,21 +12,26 @@ interface Props {
 }
 
 const FilterWrapper = ({ showAside, clearFiltersHandler, applyFiltersHandler, availableGenres }: Props) => {
-    const genreRef = useRef<string>("");
-	const filmTypeRef = useRef<string>("");
-	const yearRef = useRef<string>("");
-	const hideNullImg = useRef<boolean>(true);
-	// ! hideNullImg does work on initial load
+    const [genreValue, setGenreValue] = useState<string>("");
+    const [filmTypeValue, setFilmTypeValue] = useState<string>("");
+    const [yearValue, setYearValue] = useState<string>("");
+
+
+    const [hideNullImg, setHideNullImg] = useState<boolean>(true);
 
 	const [genreSet, setGenreSet] = useState<any>(() => new Set());
 	const genreDisplay = useRef<any>([]);
 
 	const setHandler = (array: any) => {
-		array.forEach((elem: any) => {
-			elem.genres.forEach((elem: any) => {
-				setGenreSet((prev: any) => new Set(prev).add(elem.name));
-			});
-		});
+		if(array.length !== 0){
+            array.forEach((elem: any) => {
+                elem.genres.forEach((elem: any) => {
+                    setGenreSet((prev: any) => new Set(prev).add(elem.name));
+                });
+            });
+        } else{
+            setGenreSet({0: "Action", 1: "Adventure",2: "Animation", 3: "Drama", 4: "Animation", 5: "Crime", 6: "Short", 7: "Comedy", 8: "Fantasy", 9: "Musical", 10: "Thriller", 11: "Documentary", 12: "Science Fiction"});
+        }
 	};
 
 	useEffect(() => {
@@ -36,28 +41,37 @@ const FilterWrapper = ({ showAside, clearFiltersHandler, applyFiltersHandler, av
 	}, [availableGenres]);
 
     useEffect(() => {
-        applyFiltersHandler(genreRef.current, filmTypeRef.current, yearRef.current, hideNullImg.current);
+        applyFiltersHandler(genreValue, filmTypeValue, yearValue, hideNullImg);
     }, []);
 
 	const hideNullImgHandler = (elem: any) => {
 		if(elem.target.checked === true){
-			hideNullImg.current = true;
+			setHideNullImg(true);
 		} else{
-			hideNullImg.current = false;
+			setHideNullImg(false);
 		}
 	}
+
+    function resetForm(){
+        setGenreValue("");
+        setFilmTypeValue("");
+        setYearValue("");
+        setHideNullImg(false);
+    }
 
     return (<>
         <div className="filter-wrapper">
             <FormControl className={ showAside ? "filter-select-wrapper filter-show" : "filter-select-wrapper"}>
                 <FormLabel>Genres</FormLabel>
                 <Select
+                    className="filter-select-elem"
                     variant="flushed"
                     placeholder="Select genre..."
                     iconColor="transparent"
-                    onChange={(value) => {genreRef.current = value.currentTarget.value;}}>
+                    value={genreValue}
+                    onChange={(value) => {setGenreValue(value.currentTarget.value)}}>
                     {genreDisplay.current.map((elem: any, index: number) => {
-                        return (
+                        return(
                             <option id={elem} key={index} value={elem}>{elem}</option>
                         );
                     })}
@@ -66,12 +80,12 @@ const FilterWrapper = ({ showAside, clearFiltersHandler, applyFiltersHandler, av
             <FormControl className={ showAside ? "filter-select-wrapper filter-show" : "filter-select-wrapper"}>
                 <FormLabel>Film Type</FormLabel>
                 <Select
+                    className="filter-select-elem"
                     variant="flushed"
                     placeholder="Select film type..."
                     iconColor="transparent"
-                    onChange={(value) => {
-                        filmTypeRef.current = value.currentTarget.value;
-                    }}>
+                    value={filmTypeValue}
+                    onChange={(value) => {setFilmTypeValue(value.currentTarget.value)}}>
                     <option value="Movie">Movie</option>
                     <option value="Series">Series</option>
                 </Select>
@@ -79,12 +93,12 @@ const FilterWrapper = ({ showAside, clearFiltersHandler, applyFiltersHandler, av
             <FormControl className={showAside ? "filter-select-wrapper filter-show" : "filter-select-wrapper"}>
                 <FormLabel>Year</FormLabel>
                 <Select
+                    className="filter-select-elem"
                     variant="flushed"
                     placeholder="Select a timeframe ..."
                     iconColor="transparent"
-                    onChange={(value) => {
-                        yearRef.current = value.currentTarget.value;
-                    }}>
+                    value={yearValue}
+                    onChange={(value) => {setYearValue(value.currentTarget.value)}}>
                     <option value="2020">2020s</option>
                     <option value="2010">2010s</option>
                     <option value="2000">2000s</option>
@@ -98,15 +112,15 @@ const FilterWrapper = ({ showAside, clearFiltersHandler, applyFiltersHandler, av
             </FormControl>
             <FormControl className={showAside ? "filter-select-wrapper filter-show" : "filter-select-wrapper"}>
                 <FormLabel>Hide 'no image' movies?</FormLabel>
-                <Checkbox defaultChecked size="lg" onChange={(elem: any) => hideNullImgHandler(elem)}>Hide no cover movies?</Checkbox>
+                <Checkbox size="lg" defaultChecked isChecked={hideNullImg} onChange={(elem: any) => {hideNullImgHandler(elem)}}>Hide no cover movies?</Checkbox>
             </FormControl>
         </div>
         <div className={showAside ? "filter-btn-wrapper filter-btn-show" : "filter-btn-wrapper"}>
-            <button className="filter-btn clear-btn" onClick={clearFiltersHandler}>
-                Clear Filters
-            </button>
-            <button className="filter-btn apply-btn"
-                onClick={() => applyFiltersHandler(genreRef.current, filmTypeRef.current, yearRef.current, hideNullImg.current)}>Apply</button>
+            <button className="filter-btn clear-btn" onClick={() => {
+                clearFiltersHandler();
+                resetForm();
+            }}>Clear Filters</button>
+            <button className="filter-btn apply-btn" onClick={() => applyFiltersHandler(genreValue, filmTypeValue, yearValue, hideNullImg)}>Apply</button>
         </div>
     </>);
 };

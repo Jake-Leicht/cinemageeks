@@ -14,8 +14,6 @@ const ProductPageImport = React.lazy(() => {
     return import("../components/ProductPage");
 });
 
-// ! scrollable movieCards issue: scroll between cards and page
-
 const HomePage = () => {
     const navigate: any = useNavigate();
 
@@ -91,13 +89,13 @@ const HomePage = () => {
 
     // ^ Genre Selection & Handlers
     const [genreSelection, setGenreSelection] = useState<boolean>(false);
-    const [genreSearch, setGenreSearch] = useState<string>("");
+    // const [genreSearch, setGenreSearch] = useState<string>("");
 
     return(<>
         <Navbar search={search} setSearch={setSearch} onOpen={onOpen} onClose={onClose} 
-        btnRef={btnRef} closeProductPage={closeProductPage} cartHandler={cartHandler}/>
+        btnRef={btnRef} closeProductPage={closeProductPage} cartHandler={cartHandler} setShowProductPage={setShowProductPage}/>
         {showProductPage ? <>
-        {/* Change fallback for ProductPage?? */}
+        {/* todo: Change fallback for ProductPage?? */}
             <Suspense fallback={<LoadingSkeletons/>}>
                 <ProductPageImport selectedMovie={selectedMovie} quantity={quantity}
                 setQuantity={setQuantity} purchaseHandler={purchaseHandler}/>

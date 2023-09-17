@@ -19,7 +19,6 @@ const ProductPage = ({selectedMovie, quantity, setQuantity, purchaseHandler}: Pr
     const BUY_COST: number = 5.0;
 
     const [viewProductIndex, setViewProductIndex] = useState<number>(1);
-    // todo: make quantity a ref again, keep useState in HomePage
     const [cost, setCost] = useState<number>(0);
     const movieQualityRef = useRef<string>("");
     const rentMovieRef = useRef<boolean>(false);
@@ -49,6 +48,7 @@ const ProductPage = ({selectedMovie, quantity, setQuantity, purchaseHandler}: Pr
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const modalOpenHandler = () => {
         {modalOpen ? setModalOpen(false) : setModalOpen(true)}
+        window.scrollTo(0, 0);
     }
 
     function displayCast(array: string[]){
@@ -59,7 +59,7 @@ const ProductPage = ({selectedMovie, quantity, setQuantity, purchaseHandler}: Pr
     const [winWidth, setWinWidth] = useState<number>(0);
 
     const getWindowSize = () => {
-        let width = window.innerWidth;
+        let width = window.outerWidth;
         setWinWidth(width);
     }
 
@@ -75,7 +75,7 @@ const ProductPage = ({selectedMovie, quantity, setQuantity, purchaseHandler}: Pr
 
     function DesktopView(){
         return(<>
-            <div className="product-wrapper">
+            <div className={modalOpen ? "product-wrapper no-scrolling" : "product-wrapper"}>
                 <div className="product-viewing">
                     {/* todo: make component? */}
                     <div className="current-view-wrapper">
@@ -94,24 +94,24 @@ const ProductPage = ({selectedMovie, quantity, setQuantity, purchaseHandler}: Pr
                             </div>
                         </div>
                         <div className="product-view" onMouseEnter={() => setViewProductIndex(3)}>
-                            {/* <div className="open-case-wrapper">
-                                <div className="case-side left-side">
+                            <div className="open-case-wrapper open-case-wrapper-adjusted open-case-wrapper-showcase">
+                                <div className="case-side left-side left-side-adjusted">
                                     <img className="open-case-img" src={selectedMovie.cover} alt="Cover"/>
                                 </div>
-                                <div className="case-side right-side">
-                                    <div className="case-cd-wrapper">
+                                <div className="case-side right-side right-side-adjusted">
+                                    <div className="case-cd-wrapper case-cd-wrapper-adjusted">
                                         <img className="open-case-cd-img" src={selectedMovie.cover} alt="Cover"/>
-                                        <div className="case-cd-center"></div>
+                                        <div className="case-cd-center case-cd-center-adjusted"></div>
                                     </div>
                                 </div>
-                            </div> */}
+                            </div>
                         </div>
                     </div>
                     {winWidth <= 576 ? <>
                         <div className="mobile-view-wrapper">
                             <button onClick={() => setViewProductIndex(1)} className={viewProductIndex === 1 ? "active" : ""} title="view"></button>
                             <button onClick={() => setViewProductIndex(2)} className={viewProductIndex === 2 ? "active" : ""} title="view"></button>
-                            <button onClick={() => setViewProductIndex(3)} className={viewProductIndex === 3 ? "active" : ""} title="view"></button>
+                            {/* <button onClick={() => setViewProductIndex(3)} className={viewProductIndex === 3 ? "active" : ""} title="view"></button> */}
                         </div>
                     </> : <></>}
                 </div>

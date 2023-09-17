@@ -1,8 +1,4 @@
 @import "./app.scss";
-// todo:
-// * turn aside into slide-out modal to cart
-// * when less tha  768px
-// * 
 
 .aside-wrapper{
     background-color: $light;
@@ -14,13 +10,16 @@
     flex-direction: column;
     justify-content: flex-start;
     gap: 2%;
+    padding-bottom: 2%;
 
     @media screen and (max-width: 768px){
-
+        background-color: transparent;
+        height: 100vh;
+        position: absolute;
+        top: $navHeight;
+        left: 0;
+        z-index: 2;
     }
-    // @media screen and (max-width: 576px){
-    //     z-index: 999;
-    // }
 
     .hamburger-menu{
         width: 40px;
@@ -73,7 +72,7 @@
     transition: width 750ms, background-color 750ms;
     background-color: $mid;
 
-    // @media screen and (max-width: 576px){
-    //     width: 100%;
-    // }
+    @media screen and (max-width: 768px){
+        width: 100vw;
+    }
 }
